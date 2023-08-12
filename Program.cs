@@ -21,6 +21,7 @@ builder.Services.AddTransient<IDatabaseInitializer, DatabaseInitializer>();
 builder.Services.AddScoped<IAgeRangeRepository, AgeRangeRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IStateRepository, StateRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IAppUserService, AppUserService>();
 

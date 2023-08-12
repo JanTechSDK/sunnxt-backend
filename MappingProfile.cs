@@ -9,8 +9,12 @@ namespace SunNxtBackend
         public MappingProfile() {
 
             CreateMap<Country, CountryViewModel>().ReverseMap();
-            CreateMap<State, StateViewModel>().ReverseMap();
-            CreateMap<City, CityViewModel>().ReverseMap();
+            CreateMap<State, StateViewModel>()
+                    .ForMember(dest => dest.CountryName, opt => opt.MapFrom(src => src.Country.CountryName))
+                    .ReverseMap();
+            CreateMap<City, CityViewModel>()
+                    .ForMember(dest => dest.StateName, opt => opt.MapFrom(src => src.State.StateName))
+                    .ReverseMap();
             CreateMap<AgeRange, AgeRangeViewModel>().ReverseMap();
 
             CreateMap<AppUser, AppUserViewModel>()

@@ -19,12 +19,12 @@ namespace SunNxtBackend.Repositories
 
         public async Task<List<State>> GetAll()
         {
-            return await _dbContext.States.AsNoTracking().ToListAsync();
+            return await _dbContext.States.Include(c => c.Country).AsNoTracking().ToListAsync();
         }
 
         public async Task<List<State>> GetAllStatesByCountryId(int countryId)
         {
-            return await _dbContext.States.Where(c => c.CountryId == countryId).AsNoTracking().ToListAsync();
+            return await _dbContext.States.Where(c => c.CountryId == countryId).Include(c => c.Country).AsNoTracking().ToListAsync();
         }
     }
 }

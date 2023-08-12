@@ -28,12 +28,20 @@ namespace SunNxtBackend.Repositories
 
         public async Task<List<AppUser>> GetAll()
         {
-            return await _dbContext.AppUsers.AsNoTracking().ToListAsync();
+            return await _dbContext.AppUsers.Include(a => a.AgeRange)
+                                            .Include(a => a.Country)
+                                            .Include(a => a.State)
+                                            .Include(c => c.City)
+                                            .AsNoTracking().ToListAsync();
         }
 
         public async Task<AppUser> GetAppUserById(int appUserId)
         {
-            return await _dbContext.AppUsers.AsNoTracking().FirstOrDefaultAsync(s => s.Id == appUserId);
+            return await _dbContext.AppUsers.Include(a => a.AgeRange)
+                                            .Include(a => a.Country)
+                                            .Include(a => a.State)
+                                            .Include(c => c.City)
+                                            .AsNoTracking().FirstOrDefaultAsync(s => s.Id == appUserId);
         }
 
         public async Task<bool> SaveAppUserAsync(AppUser appUser)
@@ -62,6 +70,7 @@ namespace SunNxtBackend.Repositories
             return await _dbContext.AppUsers.Include(a=>a.AgeRange)
                                             .Include(a => a.Country)
                                             .Include(a => a.State)
+                                            .Include (c => c.City)
                                             .AsNoTracking()
                                             .FirstOrDefaultAsync(s => s.MobileNumber == mobileNumber);
         }
